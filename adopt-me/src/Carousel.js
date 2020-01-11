@@ -19,7 +19,7 @@ class Carousel extends React.Component {
     //whenever you are passing functions down into children, or doing event listeners, use an arrow function because it guarantes that 'this' is correct
     handleIndexClick = event => {
         this.setState({
-            //the '+' is a unairy plus will turn a string to a number (because dataset is from the DOM and all from the DOM is a string)
+            //the '+' is a unary plus will turn a string to a number (because dataset is from the DOM and all from the DOM is a string)
             active: +event.target.dataset.index
         });
     };
