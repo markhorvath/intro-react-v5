@@ -2,6 +2,7 @@ import React from 'react';
 import pet from '@frontendmasters/pet';
 import Carousel from './Carousel';
 import ErrorBoundary from './ErrorBoundary';
+import ThemeContext from './ThemeContext';
 // this will pretty print any object passed to it (such as props) to the DOM, good for debugging.  can also use devtools
 // const Details = props => {
 //     return (
@@ -42,7 +43,15 @@ class Details extends React.Component {
                 <div>
                     <h1>{name}</h1>
                     <h2>{`${animal} - ${breed} - ${location}`}</h2>
-                    <button>Adopt {name}</button>
+                    {/*we use themeHook[0] for the background color because the hook by default provides both the 'theme' and 'setTheme' as an array*/}
+                    {/*originally the parameter was (themeHook) and the backgroundColor was set to themeHook[0], but we changed it to just [theme]
+                    in the parameter and 'theme' in the in-line style to destructure it*/}
+                    <ThemeContext.Consumer>
+                        {([theme]) => (
+                            <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+                        )}
+                    </ThemeContext.Consumer>
+
                     <p>{description}</p>
                 </div>
             </div>
