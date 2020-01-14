@@ -11,8 +11,7 @@ const SearchParams = () => {
     const [animal, AnimalDropdown, setAnimal] = useDropdown("Animal", "dog", ANIMALS); //added setAnimal just to see if it broke anything
     const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
     const [pets, setPets] = useState([]);
-    // the below comes with a 'setTheme' but we're not gonna use it so not grabbing it
-    const [theme] = useContext(ThemeContext);
+    const [theme, setTheme] = useContext(ThemeContext);
 
     async function requestPets() {
         const { animals } = await pet.animals({
@@ -49,6 +48,24 @@ const SearchParams = () => {
                 </label>
                 <AnimalDropdown />
                 <BreedDropdown />
+                {/*we're not using useDropdown.js here because it creates it's own hooks and here we're using App's hooks (i.e. 'theme')*/}
+                <label htmlFor="theme">
+                    Theme
+                    <select
+                        value={theme}
+                        onChange={e => setTheme(e.target.value)}
+                        onBlur={e => setTheme(e.target.value)}
+                    >
+                    <option value="darkblue">Dark Blue</option>
+                    <option value="peru">Peru</option>
+                    <option value="whitesmoke">White Smoke</option>
+                    <option value="cornflowerBlue">Cornflower Blue</option>
+                    <option value="chartreuse">Chartreuse</option>
+                    <option value="olivedrab">Olive Drab</option>
+                    <option value="sandybrown">Sandy Brown</option>
+                    <option value="tomato">Tomato</option>
+                    </select>
+                </label>
                 {/*2 curly braces around color theme because the outer one signifies it's a JS expression and the inner is for the object itself*/}
                 <button style={{ backgroundColor:theme }}>Submit</button>
             </form>
